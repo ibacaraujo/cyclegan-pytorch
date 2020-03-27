@@ -59,7 +59,7 @@ def get_transform(opt, params=None, grayscale=False, method=Image.BICUBIC, conve
         transform_list.append(transforms.Lambd(lambda img: __make_power2(img, base=4, method=method)))
 
     if not opt.no_flip:
-        if param is None:
+        if params is None:
             transform_list.append(transforms.RandomHorizontalFlip())
         elif params['flip']:
             transform_list.append(transforms.Lambda(lambda img: __flip(img, params['flip'])))
@@ -103,7 +103,7 @@ def __flip(img, flip):
         return img.transpose(Image.FLIP_LEFT_RIGHT)
     return img
 
-def __print_size_warning():
+def __print_size_warning(ow, oh, w, h):
     if not hasattr(__print_size_warning, 'has_prineted'):
         print("The image size needs to be a multiple of 4. " 
               "The loaded image size was (%d, %d), so it was adjusted to "
