@@ -79,7 +79,7 @@ def __make_power2(img, base, method=Image.BICUBIC):
     if h == oh and w == ow:
         return img
 
-    __print_size_warning(ow, oh, h, w):
+    __print_size_warning(ow, oh, h, w)
     return img.resize((w, h), method)
 
 def __scale_width(img, target_size, crop_size, method=Image.BICUBIC):
