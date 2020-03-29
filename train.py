@@ -1,6 +1,6 @@
 import time
 from options.train_options import TrainOptions
-from dataset import create_dataset
+from data import create_dataset
 from models import create_model
 from util.visualizer import Visualizer
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
                 losses = model.get_current_losses()
                 t_comp = (time.time() - iter_start_time) / opt.batch_size
                 visualizer.print_current_losses(epoch, epoch_iter, losses, t_comp, t_data)
-                if opt_display > 0:
+                if opt.display_id > 0:
                     visualizer.plot_current_losses(epoch, float(epoch_iter) / dataset_size, losses)
 
             if total_iters % opt.save_latest_freq == 0:

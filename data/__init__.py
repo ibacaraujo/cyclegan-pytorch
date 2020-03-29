@@ -30,7 +30,7 @@ def create_dataset(opt):
 class CustomDatasetLoader():
     def __init__(self, opt):
         self.opt = opt
-        dataset_class = find_dataset_usingname(opt.dataset_mode)
+        dataset_class = find_dataset_using_name(opt.dataset_mode)
         self.dataset = dataset_class(opt)
         print("dataset [%s] was created" % type(self.dataset).__name__)
         self.dataloader = torch.utils.data.DataLoader(
@@ -47,6 +47,6 @@ class CustomDatasetLoader():
 
     def __iter__(self):
         for i, data in enumerate(self.dataloader):
-            if i * self.opt.batch_size >= self.opt_maxdataset_size:
+            if i * self.opt.batch_size >= self.opt.max_dataset_size:
                 break
             yield data
