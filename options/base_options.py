@@ -50,10 +50,42 @@ class BaseOptions():
         return parser
 
     def gather_options(self):
-        pass
+        if not self.initialized:
+            parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+            parser = self.initialize(parser)
+
+        opt, _ = parser.parse_known_args()
+
+        model_name = opt.model
+        model_option_setter = models.get_option_setter(model_name)
+        parser = model_option_setter(parser, self.isTrain)
+        opt, _ = parser.parse_known_args()
+
+        dataset_name = opt.dataset_mode
+        dataset_option_setter = data.get_option_setter(dataset_name)
+        parser = dataset_option_setter(parser, self.isTrain)
+
+        self.parser = parser
+        return parser.parse_args()
 
     def print_options(self):
-        pass
+        message = ''
+        message += '----------------- Options ---------------\n'
+        for k, v in sorted(vars(opt).items()):
+            comment = ''
+            default = self.parser.get_default(k)
+            if v != default:
+                comment = '\t[default: %s]' % str(default)
+            message += '{:>25}: {:<30}{}\n'.format(str(k), str(v), comment)
+        message += '----------------- End -------------------'
+        print(message)
+
+        expr_dir = os.path.join(opt.checkpoints_dir, opt.name)
+        util.mkdirs(expr_dir)
+        file_name = os.path.join(expr_dir, '{}_opt.txt'.format(opt.phase))
+        with open(file_name, 'wt') as opt_file:
+            opt_file.write(message)
+            opt_file.write('\n')
 
     def parse(self):
         pass
