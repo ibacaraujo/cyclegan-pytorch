@@ -34,7 +34,7 @@ if __name__ == "__main__":
             if total_iters % opt.display_freq == 0:
                 save_results = total_iters % opt.update_html_freq == 0
                 model.compute_visuals()
-                visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+                visualizer.display_current_results(model.get_current_visuals(), epoch, save_results)
 
             if total_iters % opt.print_freq == 0:
                 losses = model.get_current_losses()
