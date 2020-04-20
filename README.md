@@ -1,2 +1,2 @@
 # pytorch-CycleGAN
-CycleGAN in PyTorch. Step by step.
+CycleGAN in PyTorch. Step by step. Great.
