@@ -2,7 +2,7 @@ import os
 import torch
 from collections import OrderedDict
 from abc import ABC, abstractmethod
-from . networks
+from . import networks
 
 class BaseModel():
     """
