@@ -27,7 +27,7 @@ class BaseModel():
         self.opt = opt
         self.gpu_ids = opt.gpu_ids
         self.isTrain = opt.isTrain
-        self.device = torch.device('cuda:{}'.format(self.gpus_ids[0] if self.gpu_ids else torch.device('cpu')))
+        self.device = torch.device('cuda:{}'.format(self.gpu_ids[0] if self.gpu_ids else torch.device('cpu')))
         self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
         if opt.preprocess != 'scale_width':
             torch.backends.cudnn.benchmark = True
@@ -184,7 +184,7 @@ class BaseModel():
                 print('[Network %s] Total number of parameters : %.3f M' % (name, num_params / 1e6))
         print('-----------------------------------------------')
 
-     def set_requires_grad(self, nets, requires_grad=False):
+    def set_requires_grad(self, nets, requires_grad=False):
         """Set requies_grad=Fasle for all the networks to avoid unnecessary computations
         Parameters:
             nets (network list)   -- a list of networks
